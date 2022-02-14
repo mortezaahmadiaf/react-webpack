@@ -1,0 +1,32 @@
+
+{
+    "presets": [
+       
+        // "@babel/react",
+        "@babel/preset-react",
+        [
+            //  "@babel/env",
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "browsers": "last 2 versions"
+                },
+                "modules": false,
+                "loose": false
+            }
+        ]
+    ],
+    
+    "plugins": [
+        "transform-class-properties",
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-class-properties","macros"
+    ],
+    "env": {
+        "test": {
+            "plugins": [
+                "transform-es2015-modules-commonjs"
+            ]
+        }
+    }
+}
