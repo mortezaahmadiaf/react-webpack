@@ -1,7 +1,6 @@
-const plugin = require('tailwindcss/plugin')
-const colors =require('./src/styles/colors')
+const plugin = require("tailwindcss/plugin");
+const colors = require("./src/styles/colors");
 module.exports = {
-  // content: ['./src/**/*.{jsx,js}'],
   content: [
     "./public/index.html",
     "./src/services/**/*.{js,jsx}",
@@ -23,24 +22,24 @@ module.exports = {
         sans: ["Graphik", "sans-serif"],
         serif: ["Merriweather", "serif"],
       },
-    
+
       spacing: {
-        sm: '8px',
-        md: '12px',
-        lg: '16px',
-        xl: '24px',
+        sm: "8px",
+        md: "12px",
+        lg: "16px",
+        xl: "24px",
       },
-        borderRadius: {
-          "4xl": "2rem",
-        },
-   
+      borderRadius: {
+        "4xl": "2rem",
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [ plugin(({ addUtilities, addComponents, e, prefix, config })=> {
-    // Add your custom styles here
-  }),],
-
+  plugins: [
+    plugin(({ addUtilities, addComponents, e, prefix, config }) => {
+      // Add your custom styles here
+    }),
+  ],
 };

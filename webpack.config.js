@@ -50,28 +50,14 @@ const CSSLoader = {
   options: {
     modules: "global",
     importLoaders: 2,
-    // camelCase: true,
     sourceMap: false, // turned off as causes delay
   },
 };
-// Our PostCSSLoader
-// const PostCSSLoader = {
-//   loader: 'postcss-loader',
-//   options: {
-//     sourceMap: false, // turned off as causes delay
-//     // postcssOptions: { plugins: [tailwindcss,
-//     //   autoprefixer({
-//     //     Browserslist: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9']
-//     //   })
-//     // ] }
 
-//   }
-// }
 // Standard style loader (prod and dev covered here)
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== "production";
 const styleLoader = devMode ? "style-loader" : MiniCssExtractPlugin.loader;
-// const styleLoader = 'style-loader'
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
@@ -101,33 +87,26 @@ module.exports = (env, argv) => {
         {
           test: /\.(sa|sc|c)ss$/,
           exclude: /\.module\.(sa|sc|c)ss$/,
-          use: [
-            styleLoader,
-            CSSLoader,
-            "sass-loader",
-            "postcss-loader" ,
-          ],
+          use: [styleLoader, CSSLoader, "sass-loader", "postcss-loader"],
         },
         // css|scss module loader
         {
           test: /\.module\.(sa|sc|c)ss$/,
-          use: [
-            styleLoader,
-            CSSModuleLoader,
-            "sass-loader" ,
-            "postcss-loader",
-          ],
+          use: [styleLoader, CSSModuleLoader, "sass-loader", "postcss-loader"],
         },
+        // less loader
         {
           test: /\.less$/,
-          use: ['style-loader','css-loader',"less-loader"]
+          use: ["style-loader", "css-loader", "less-loader"],
         },
+        // image file loader
         {
           test: /\.(jpe?g|png|gif|svg)$/i,
           use: ["file-loader?name=/dist/assets/images/[name].[ext]"],
           /* Exclude fonts while working with images, e.g. .svg can be both image or font. */
           exclude: path.resolve(__dirname, "./src/assets/fonts"),
         },
+        // file loader
         {
           test: /\.(ttf|eot|woff|woff2|svg)$/,
           use: ["file-loader?name=/dist/assets/fonts/[name].[ext]"],
@@ -149,6 +128,9 @@ module.exports = (env, argv) => {
             exposes: { globalName: "_", override: true },
           },
         },
+        //  Underscore.js is a utility-belt library for JavaScript that provides
+        //  support for the usual functional suspects (each, map, reduce, filter...)
+        //  without extending any core JavaScript objects
         {
           test: require.resolve("underscore"),
           loader: "expose-loader",
@@ -175,16 +157,18 @@ module.exports = (env, argv) => {
       },
     },
     devtool: isProduction ? "source-map" : "inline-source-map",
+
     devServer: {
       host: "localhost",
       port: 3000,
       historyApiFallback: true,
       open: true,
     },
+
     plugins: [
       new MiniCssExtractPlugin({
-           filename: "./src/styles/index.css",
-        chunkFilename: "./src/styles/index.css"
+        filename: "./src/styles/index.css",
+        chunkFilename: "./src/styles/index.css",
       }),
       new HtmlWebpackPlugin({
         template: "public/index.html",
